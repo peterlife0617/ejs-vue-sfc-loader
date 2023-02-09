@@ -1,18 +1,14 @@
-<div id="app">
-
-</div>
-
-<script type="module">
-	import * as Vue from 'https://unpkg.com/vue@3/dist/vue.runtime.esm-browser.prod.js';
-	import { loadModule } from 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.8.4/dist/vue3-sfc-loader.esm.js';
-
+<div id="app"></div>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
+<script>
 	const options = {
-		moduleCache: { vue: Vue },
+		moduleCache: {
+			vue: Vue,
+		},
 		async getFile(url) {
 			const res = await fetch(url);
-			if (!res.ok) {
-				throw Object.assign(new Error(res.statusText + ' ' + url), { res });
-			}
+			if (!res.ok) throw Object.assign(new Error(res.statusText + ' ' + url), { res });
 			return {
 				getContentData: (asBinary) => (asBinary ? res.arrayBuffer() : res.text()),
 			};
@@ -23,5 +19,15 @@
 			document.head.insertBefore(style, ref);
 		},
 	};
-	Vue.createApp(Vue.defineAsyncComponent(() => loadModule('./src/App.vue', options))).mount('#app');
+
+	const { loadModule } = window['vue3-sfc-loader'];
+
+	const app = Vue.createApp({
+		components: {
+			HelloMessage: Vue.defineAsyncComponent(() => loadModule('./src/components/HelloMessage.vue', options)),
+		},
+		template: '<HelloMessage msg="<%= message %>"></HelloMessage>',
+	});
+
+	app.mount('#app');
 </script>

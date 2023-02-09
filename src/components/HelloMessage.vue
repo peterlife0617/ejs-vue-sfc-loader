@@ -1,14 +1,10 @@
 <template>
-	<span class="example">{{ name + msg }}</span>
+	<span class="example">{{ msg }}</span>
 </template>
 <script>
 	export default {
-		props: ['name'],
-		data() {
-			return {
-				msg: 'hello!',
-			};
-		},
+		props: ['msg'],
+
 		mounted() {
 			alert('child mounted!!!');
 		},
