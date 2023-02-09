@@ -1,16 +1,5 @@
-
 # ejs+vue3-sfc-loader
 
-
-
-## Installation
-
-Install with npm
-
-```bash
-npm install
-```
-    
 ## Run
 
 Install dependencies
